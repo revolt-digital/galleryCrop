@@ -1,0 +1,27 @@
+.container {
+  padding: 30px;
+}
+
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  margin: auto;
+  width: 800px;
+  height: 600px;
+  border: 1px solid black;
+  padding: 0px 40px;
+  box-sizing: border-box;
+}
+
+.view {
+  display: flex;
+height: 80%;
+justify-content: center;
+}
+
+.header {
+  display: flex;
+  justify-content:space-between;
+  flex-direction: row-reverse;
+  padding-top: 20px;
+}

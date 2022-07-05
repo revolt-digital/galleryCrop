@@ -1,0 +1,52 @@
+svg {
+  cursor: pointer;
+}
+
+.container {
+  padding: 30px;
+}
+
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  margin: auto;
+  width: 800px;
+  height: 600px;
+  border: 1px solid black;
+  padding: 0px 40px;
+  box-sizing: border-box;
+}
+
+.cropContent {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.buttonsContainer {
+  display: flex;
+  justify-content: flex-end;
+  padding: 20px;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  flex-direction: row-reverse;
+  padding: 20px 0;
+}
+.title {
+  margin: 0;
+  padding: 20;
+}
+
+.rangeContainer {
+  display: flex;
+  justify-content: flex-end;
+  width: 100%;
+  margin-top: 10px;
+}
+
+.rangeContainer input {
+  width: 100%;
+}

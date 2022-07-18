@@ -6,7 +6,7 @@ import { useImages } from './mock/useImages';
   const { data } = useImages();
 
   return (
-    <GalleryCrop listOfImages={data} aspectRatio={16/9} /* maxWidth  maxWeight */ />
+    <GalleryCrop listOfImages={data} aspectRatio={2/2} />
   )
 }
 

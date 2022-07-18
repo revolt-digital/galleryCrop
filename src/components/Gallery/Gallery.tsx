@@ -1,24 +1,35 @@
 import { FC } from "react";
 import { IGallery } from "../../interfaces/types.ts";
-import Card from "../CardList/CardList";
-import InputFile from "../InputFile/InputFile";
+import CardList from "../ImageList/ImageList";
 import styles from "./Gallery.module.css";
+import { Card } from "../Common/Card/Card";
+import { Button } from "../Common/Button/Button";
 
-const Gallery: FC<IGallery> = ({ data, setImageSelected, setImageOpen, setCropVisible }) => {
+const Gallery: FC<IGallery> = ({
+  data,
+  setImageSelected,
+  setImageOpen,
+  setCropVisible,
+}) => {
   return (
-    <div className={styles.container}>
-      <div className={styles.galleryWrapper}>
-        <h3 className={styles.title}>GALLERY</h3>
-        <div className={styles.galleryList}>
-          {data.map((item) => (
-            <Card {...item} setImageSelected={setImageSelected} setImageOpen={setImageOpen} setCropVisible={setCropVisible}/>
-          ))}
+    <Card
+      title="Add an image"
+      subtitle="Select an image from the library"
+      body={data.map((item, i) => (
+        <CardList
+          key={i}
+          {...item}
+          setImageSelected={setImageSelected}
+          setImageOpen={setImageOpen}
+          setCropVisible={setCropVisible}
+        />
+      ))}
+      bottom={
+        <div className={styles.footer}>
+          <Button text="UPLOAD IMAGE" primary/>
         </div>
-        <div className={styles.buttonsContainer}>
-          <InputFile />
-        </div>
-      </div>
-    </div>
+      }
+    />
   );
 };
 

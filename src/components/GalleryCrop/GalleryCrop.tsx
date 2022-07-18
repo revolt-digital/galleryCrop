@@ -21,17 +21,22 @@ const GalleryCrop: FC<IGalleryCrop> = ({
 
   return (
     <>
-      <Gallery
-        data={listOfImages}
-        setImageSelected={selected}
-        setImageOpen={setImgVisible}
-        setCropVisible={setCropVisible}
-      />
-      {imgVisible && (
-        <ImageView imgUrl={imageSelected} setIsVisible={setImgVisible} />
-      )}
-      {cropVisible && (
-        <CropImage imgUrl={imageSelected} aspectRatio={aspectRatio} setCropVisible={setCropVisible}/>
+      {cropVisible ? (
+        <CropImage
+          imgUrl={imageSelected}
+          aspectRatio={aspectRatio}
+          setCropVisible={setCropVisible}
+        />
+      ) : (
+        imgVisible ? 
+          <ImageView imgUrl={imageSelected} setIsVisible={setImgVisible} />
+        :
+        <Gallery
+          data={listOfImages}
+          setImageSelected={selected}
+          setImageOpen={setImgVisible}
+          setCropVisible={setCropVisible}
+        />
       )}
     </>
   );

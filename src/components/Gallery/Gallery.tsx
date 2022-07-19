@@ -1,7 +1,6 @@
-import { FC } from "react";
+import React, { FC } from "react";
 import { IGallery } from "../../interfaces/types.ts";
 import CardList from "../ImageList/ImageList";
-import styles from "./Gallery.module.css";
 import { Card } from "../Common/Card/Card";
 import { Button } from "../Common/Button/Button";
 
@@ -25,7 +24,7 @@ const Gallery: FC<IGallery> = ({
         />
       ))}
       bottom={
-        <div className={styles.footer}>
+        <div className='gFooter'>
           <Button text="UPLOAD IMAGE" primary/>
         </div>
       }

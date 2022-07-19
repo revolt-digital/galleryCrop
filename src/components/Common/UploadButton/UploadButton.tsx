@@ -1,4 +1,4 @@
-import styles from "./UploadButton.module.css";
+import React from "react";
 import AddPhotoAlternateIcon from "@mui/icons-material/AddPhotoAlternate";
 
 const UploadButton = () => {
@@ -7,7 +7,7 @@ const UploadButton = () => {
   };
 
   return (
-    <div className={styles.container}>
+    <div className='ubContainer'>
       <input
         onChange={onChange}
         type="file"

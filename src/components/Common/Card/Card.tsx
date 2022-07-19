@@ -1,8 +1,6 @@
 import React, { FC } from "react";
-import styles from "./Card.module.css";
 import { ICard } from "../../../interfaces/types.ts";
 import { Button } from "../Button/Button";
-import CloseIcon from "@mui/icons-material/Close";
 
 export const Card: FC<ICard> = ({
   title,
@@ -13,18 +11,18 @@ export const Card: FC<ICard> = ({
   close,
 }) => {
   return (
-    <div className={styles.container}>
-      <div className={styles.galleryWrapper}>
-        <div className={styles.header}>
-          <h3 className={styles.title}>{title}</h3>
-          {close && <Button onlyIcon icon={<CloseIcon />} onClick={close} />}
+    <div className='cContainer'>
+      <div className='cGalleryWrapper'>
+        <div className='cHeader'>
+          <h3 className='cTitle'>{title}</h3>
+          {close && <Button onlyIcon onClick={close} />}
         </div>
-        <div className={styles.body}>
-          <h4 className={styles.subtitle}>{subtitle}</h4>
-          <div className={styles.galleryList}>{body}</div>
+        <div className='cBody'>
+          <h4 className='cSubtitle'>{subtitle}</h4>
+          <div className='cGalleryList'>{body}</div>
         </div>
         <div>{preBottom}</div>
-        <div className={styles.buttonsContainer}>{bottom}</div>
+        <div className='cButtonsContainer'>{bottom}</div>
       </div>
     </div>
   );

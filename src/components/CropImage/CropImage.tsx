@@ -1,10 +1,8 @@
-import { FC, useCallback, useState } from "react";
+import React, { FC, useCallback, useState } from "react";
 import Cropper, { Area, Point } from "react-easy-crop";
 import getCroppedImg from "../../utils/crop";
-import styles from "./CropImage.module.css";
 import { Card } from "../Common/Card/Card";
 import { Button } from "../Common/Button/Button";
-import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
 import { ICropImage } from "../../interfaces/types.ts";
 
 const CropImage: FC<ICropImage> = ({ imgUrl, setCropVisible, aspectRatio }) => {
@@ -25,6 +23,7 @@ const CropImage: FC<ICropImage> = ({ imgUrl, setCropVisible, aspectRatio }) => {
     const data = new FormData();
     data.append("file", croppedImage);
     setCroppedImg(croppedImage);
+    console.log(croppedImg)
   };
   
   return (
@@ -34,7 +33,7 @@ const CropImage: FC<ICropImage> = ({ imgUrl, setCropVisible, aspectRatio }) => {
       close={() => setCropVisible(false)}
       body={
         <>
-          <div className={styles.cropContent}>
+          <div className='ciCropContent'>
             <Cropper
               image={imgUrl}
               crop={crop}
@@ -48,7 +47,7 @@ const CropImage: FC<ICropImage> = ({ imgUrl, setCropVisible, aspectRatio }) => {
         </>
       }
       preBottom={
-        <div className={styles.rangeContainer}>
+        <div className='ciRangeContainer'>
           <input
             type="range"
             value={zoom}
@@ -63,8 +62,8 @@ const CropImage: FC<ICropImage> = ({ imgUrl, setCropVisible, aspectRatio }) => {
         </div>
       }
       bottom={
-        <div className={styles.footer}>
-          <Button icon={<ArrowBackIosIcon/>} text="BACK" onClick={() => setCropVisible(false)} outline />
+        <div className='ciFooter'>
+          <Button text="BACK" onClick={() => setCropVisible(false)} outline />
           <Button text="SAVE" onClick={onCrop} primary />
         </div>
       }

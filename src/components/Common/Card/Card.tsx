@@ -1,6 +1,7 @@
 import React, { FC } from "react";
 import { ICard } from "../../../interfaces/types.ts";
 import { Button } from "../Button/Button";
+import CloseIcon from "@mui/icons-material/Close";
 
 export const Card: FC<ICard> = ({
   title,
@@ -15,7 +16,7 @@ export const Card: FC<ICard> = ({
       <div className='cGalleryWrapper'>
         <div className='cHeader'>
           <h3 className='cTitle'>{title}</h3>
-          {close && <Button onlyIcon onClick={close} />}
+          {close && <Button onlyIcon icon={<CloseIcon />} onClick={close} />}
         </div>
         <div className='cBody'>
           <h4 className='cSubtitle'>{subtitle}</h4>

@@ -10,7 +10,7 @@ import GalleryCrop from "@revolt-digital/gallery-crop";
 
 ## Example
 ```bash
-import GalleryCrop from "@eaprules/gallery-crop";
+import GalleryCrop from "@revolt-digital/gallery-crop";
 function App() {
 
   const data = [

@@ -30,7 +30,7 @@ body {
   border-radius: 5%;
   margin: 10px;
   padding: 15px;
-  height: 200px;
+  height: 210px;
 }
 
 .ilContainer:hover {
@@ -98,7 +98,6 @@ body {
   display: flex;
   justify-content: flex-end;
   width: 100%;
-  margin-top: 10px;
 }
 
 .ciFooter {
@@ -109,7 +108,7 @@ body {
 
 .ciRangeContainer input {
   width: 100%;
-  margin: 15px 50px;
+  margin: 10px 50px;
 }
 
 .gFooter {
@@ -163,7 +162,8 @@ body {
   justify-content: space-evenly;
   box-sizing: border-box;
   overflow: scroll;
-  height: 498px;
+  overflow-x: hidden;
+  height: 55vh;
   margin: 15px;
   border: 2px solid #f9c438;
   border-radius: 6px;
@@ -208,7 +208,7 @@ body {
 }
 
 .cButtonsContainer {
-  padding: 10px 50px;
+  padding: 10px 50px 0;
 }
 
 .btnButton{

@@ -1,7 +1,9 @@
+import React from "react";
+
 export interface ICard {
   title: string;
   subtitle?: string;
-  body:any;
+  children: React.ReactNode;
   bottom:any;
   preBottom?:any;
   close?:() => void;
@@ -9,19 +11,21 @@ export interface ICard {
 
 export interface IimageList {
   id: any;
-  name: string;
+  fileName: string;
   url: string;
   size: string;
   extension: string;
   aspect_ratio: string;
   setImageSelected: React.Dispatch<any>;
-  setImageOpen: React.Dispatch<any>;
+  deleteImage: (id: number) => void;
   setCropVisible : React.Dispatch<any>;
 }
 
 export interface IGallery {
-  data: any[];
+  images: any[];
+  uploadImage: (files: File, type: number) => Promise<void>;
   setImageSelected: React.Dispatch<any>;
+  deleteImage: (id: number) => void;
   setImageOpen: React.Dispatch<any>;
   setCropVisible: React.Dispatch<any>;
 }
@@ -48,7 +52,8 @@ export interface IButton {
   onClick?: () => void;
 }
 export interface ICropImage {
-  imgUrl: string;
+  url: string;
+  name: string;
   aspectRatio: number;
   setCropVisible: React.Dispatch<any>;
 }

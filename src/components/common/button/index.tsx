@@ -1,5 +1,5 @@
 import React, { FC } from "react";
-import { IButton } from "../../../interfaces/types.ts";
+import { IButton } from "../../../types";
 import cs from "classnames";
 
 export const Button: FC<IButton> = ({
@@ -14,11 +14,11 @@ export const Button: FC<IButton> = ({
   return (
       <button
         className={cs(
-          'btnButton',
-          { 'btnOutline': outline },
-          { 'btnTransparent': transparent },
-          { 'btnPrimary': primary },
-          { 'btnIcon': onlyIcon }
+          'button',
+          { 'button-outline': outline },
+          { 'button-transparent': transparent },
+          { 'button-primary': primary },
+          { 'button-icon': onlyIcon }
         )}
         onClick={onClick}
       >

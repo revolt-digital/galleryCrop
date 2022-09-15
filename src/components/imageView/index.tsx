@@ -1,19 +1,13 @@
 import React, { FC } from "react";
-import { IImageView } from "../../interfaces/types.ts";
-import { Card } from "../Common/Card/Card";
-import { Button } from "../Common/Button/Button";
+import { IImageView } from "../../types";
+import { Card } from "../common/card";
+import { Button } from "../common/button";
 import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
-
 
 export const ImageView: FC<IImageView> = ({ imgUrl, setIsVisible }) => {
   return (
     <Card
       title="VIEW"
-      body={
-        <div className='ivView'>
-          <img src={imgUrl} alt="" />
-        </div>
-      }
       bottom={
         <Button
           text="BACK"
@@ -23,6 +17,10 @@ export const ImageView: FC<IImageView> = ({ imgUrl, setIsVisible }) => {
         />
       }
       close={() => setIsVisible(false)}
-    />
+    >
+      <div className="image-view">
+        <img src={imgUrl} alt="" />
+      </div>
+    </Card>
   );
 };

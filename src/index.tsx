@@ -1,46 +1,19 @@
-import React,{ useState, FC } from "react";
-import { IGalleryCrop } from "./interfaces/types.ts";
-import CropImage from "./components/CropImage/CropImage";
-import Gallery from "./components/Gallery/Gallery";
-import { ImageView } from "./components/ImageView/ImageView";
-import './styles.css';
+import React from "react";
+import ReactDOM from "react-dom/client";
+import Component from "./component";
 
-const GalleryCrop: FC<IGalleryCrop> = ({
-  listOfImages,
-  aspectRatio,
-  maxWidth,
-  maxWeight,
-}) => {
-  const [imageSelected, setImageSelected] = useState<any>(null);
-  const [imgVisible, setImgVisible] = useState<any>(null);
-  const [cropVisible, setCropVisible] = useState<any>(null);
+const root = ReactDOM.createRoot(
+  document.getElementById("root") as HTMLElement
+);
 
-  const selected = (id: any) => {
-    const selectedImage = listOfImages.find((img) => id === img.id);
-    setImageSelected(selectedImage?.url);
-  };
+// @todo: momentarily disabled because it affects the correct functioning of react-dnd
+root.render(
+  // <React.StrictMode>
+  <Component />
 
-  return (
-    <>
-      {cropVisible ? (
-        <CropImage
-          imgUrl={imageSelected}
-          aspectRatio={aspectRatio}
-          setCropVisible={setCropVisible}
-        />
-      ) : (
-        imgVisible ? 
-          <ImageView imgUrl={imageSelected} setIsVisible={setImgVisible} />
-        :
-        <Gallery
-          data={listOfImages}
-          setImageSelected={selected}
-          setImageOpen={setImgVisible}
-          setCropVisible={setCropVisible}
-        />
-      )}
-    </>
-  );
-};
+  // </React.StrictMode>
+);
 
-export default GalleryCrop;
+// If you want to start measuring performance in your app, pass a function
+// to log results (for example: reportWebVitals(console.log))
+// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals

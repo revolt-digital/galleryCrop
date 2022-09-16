@@ -61,7 +61,7 @@ export const fetchImages = async ({ endpoint, data }: Config) => {
   return await response.json();
 }
 
-export const deleteImage = async ({ endpoint, data }: Config) => {
+export const deleteImageById = async ({ endpoint, data }: Config) => {
   const url = `${API_URL}${endpoint}`;
   const headers = new Headers();
   headers.append("Content-Type", "application/json");

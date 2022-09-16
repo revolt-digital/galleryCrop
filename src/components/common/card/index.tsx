@@ -1,22 +1,25 @@
 import React, { FC } from "react";
-import { ICard } from "../../../types";
 
-export const Card: FC<ICard> = ({
+type Props = {
+  title?: string;
+  children: React.ReactNode;
+  buttons: React.ReactNode;
+};
+
+const Card: FC<Props> = ({
   title,
-  subtitle,
   children,
-  preBottom,
-  bottom,
-  close,
+  buttons,
 }) => {
   return (
     <div className="gallery-wrapper">
       <div className="card-body">
-        <h4 className="card-subtitle">{subtitle}</h4>
+        <h4 className="card-title">{title}</h4>
         {children}
       </div>
-      <div>{preBottom}</div>
-      <div className="card-button-container">{bottom}</div>
+      <div className="card-button-container">{buttons}</div>
     </div>
   );
 };
+
+export default Card;

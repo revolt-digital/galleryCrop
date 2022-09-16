@@ -1,29 +1,12 @@
-
 const createImage = (url: any) =>
   new Promise((resolve, reject) => {
     const image = new Image();
     image.addEventListener("load", () => resolve(image));
     image.addEventListener("error", (error) => reject(error));
-    image.setAttribute("crossOrigin", "anonymous"); // needed to avoid cross-origin issues on CodeSandbox
+    image.setAttribute("crossOrigin", "anonymous");
     image.src = url;
   });
 
-  /*
-  const createImage = (dataURL: string) => new Promise(resolve => {
-    const img = new Image()
-    img.crossOrigin="anonymous"
-    img.onload = () => {
-      resolve(img)
-    }
-    img.src = dataURL
-  })
-  */
-
-/**
- * This function was adapted from the one in the ReadMe of https://github.com/DominicTobias/react-image-crop
- * @param {File} image - Image File url
- * @param {Object} pixelCrop - pixelCrop Object provided by react-easy-crop
- */
 export async function getCroppedImg(imageSrc: any, name: string, pixelCrop: any) {
   const image = await createImage(imageSrc);
   const canvas = document.createElement("canvas");
@@ -45,24 +28,14 @@ export async function getCroppedImg(imageSrc: any, name: string, pixelCrop: any)
     pixelCrop.height
   );
 
-  // As Base64 string
-  // return canvas.toDataURL('image/jpeg');
-  // As a blob
   return new Promise((resolve, reject) => {
     canvas.toBlob((file) => {
-      const myFile = new File([file!], name);
-
+      console.log(name)
+      const myFile = new File([file!], `${name}` );
+   
       resolve(myFile);
     });
   });
-
-  // return new Promise((resolve, reject) => {
-  //   canvas.toBlob((file) => {
-  //     const myFile = new File([file!], "name");
-  //     console.log(myFile);
-  //     resolve(URL.createObjectURL(file!));
-  //   }, "image/jpeg");
-  // });
 }
 
 export function getAspectRatio(wi: number, he: number) {
@@ -74,6 +47,7 @@ export function getAspectRatio(wi: number, he: number) {
   if (h < 0) h = -h;
 
   if (h > w) {
+    
     let temp = w;
     w = h;
     h = temp;
@@ -83,16 +57,20 @@ export function getAspectRatio(wi: number, he: number) {
 
   while (t) {
     w %= h;
+
     if (w === 0) {
       d = h;
       t = false;
     }
+
     h %= w;
+
     if (h === 0) {
       d = w;
       t = false;
     }
   }
+
   return wi / d + "/" + he / d;
 }
 
@@ -104,6 +82,7 @@ const getHeightAndWidthFromDataUrl = (dataURL: string) => new Promise(resolve =>
       width: img.width
     })
   }
+
   img.src = dataURL
 })
 
@@ -127,10 +106,22 @@ export function getUrlByExtension(url: string, extension: string) {
   return shortenedUrl;
 }
 
-// remove extension from url
+export function getFileExtension(fileName: string) {
+  const extension = fileName.split('.').pop();
+
+  return extension;
+}
+
 export function removeExtension(value: string) {
   const index = value.lastIndexOf(".");
   const shortString = value.split("").splice(0, index).join("");
+
+  return shortString;
+}
+
+export function normalizeFilename(id: string, filename: string) {
+  const before = `decks/${id}/`;
+  const shortString = filename.split("").slice(before.length).join("");
 
   return shortString;
 }

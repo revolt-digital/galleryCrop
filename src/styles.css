@@ -1,4 +1,3 @@
-
 /*
 TODO
 these styles are here temporarily
@@ -10,18 +9,26 @@ due to an error with css.modules.
 the names were improvised, they need to be changed
 */
 
+:root {
+  --primary: #0300ad;
+  --alternative: #f9c438;
+  --white: #ffffff;
+  --black: #000000;
+  --gray: #e1e1e7;
+}
+
 body {
   margin: 0;
   font-style: bold;
-  background-color: #EAEAEA;
-  font-weight: normal; 
+  background-color: var(--white);
+  font-weight: normal;
   font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
     Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-input[type='file'] {
+input[type="file"] {
   width: 0;
   height: 0;
   overflow: hidden;
@@ -33,17 +40,18 @@ input[type='file'] {
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
-  border: 1px solid #e1e1e7;
+  border: 1px solid var(--gray);
   border-radius: 5%;
-  padding: .5rem;
-  height: 243px;
+  padding: 0.5rem;
+  height: 240px;
+  cursor: pointer;
 }
 
 .image-container:hover {
-  border: 1px solid #0300AD;
+  border: 1px solid var(--primary);
 }
 
-.image-list-details {
+.image-details {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -52,14 +60,10 @@ input[type='file'] {
   height: 100%;
 }
 
-.image-list-description {
+.image-description {
   display: flex;
   flex-direction: column;
   align-items: center;
-}
-
-.ilDescription span {
-  margin-bottom: 5px;
 }
 
 .image-thumbnail {
@@ -70,29 +74,24 @@ input[type='file'] {
 
 .icon-container {
   display: flex;
+  justify-content: center;
 }
 
-.ilIconsContainer svg {
-  margin-right: 10px;
-  cursor: pointer;
-}
-
-.image-list-name-label {
+.image-name-label {
   font-style: normal;
   font-weight: 500;
   font-size: 12px;
   line-height: 145%;
-  color: #000000;
+  color: var(--black);
 }
 
-.image-list-size-label {
+.image-size-label {
   font-style: normal;
   font-weight: 500;
   font-size: 12px;
   line-height: 145%;
   color: #a2a6be;
 }
-
 
 .crop-image-container {
   position: relative;
@@ -109,7 +108,7 @@ input[type='file'] {
 .crop-image-footer {
   display: flex;
   justify-content: space-between;
-  margin-bottom: 10px ;
+  margin-bottom: 10px;
 }
 
 .grid-images {
@@ -119,6 +118,9 @@ input[type='file'] {
   gap: 0.5rem;
   height: 440px;
   overflow-y: auto;
+  border: 2px solid var(--alternative);
+  border-radius: 10px;
+  padding: 0.5rem;
 }
 
 .crop-image-range-container input {
@@ -126,7 +128,7 @@ input[type='file'] {
   margin: 10px 50px;
 }
 
-.gallery-footer {
+.gallery-button {
   display: flex;
   justify-content: center;
 }
@@ -138,7 +140,7 @@ input[type='file'] {
 }
 
 .gallery-wrapper {
-  background-color: white;
+  background-color: var(--white);
   margin: auto;
   display: flex;
   flex-direction: column;
@@ -147,17 +149,17 @@ input[type='file'] {
   border-radius: 10px;
 }
 
-.card-gallery-list {
+.crop-container {
   display: flex;
   flex-direction: row;
-  gap: .5rem;
+  gap: 0.5rem;
   padding: 0.5rem;
   box-sizing: border-box;
   overflow: scroll;
   overflow-x: hidden;
   height: 500px;
   margin: 15px;
-  border: 2px solid #f9c438;
+  border: 2px solid var(--alternative);
   border-radius: 6px;
 }
 
@@ -166,7 +168,7 @@ input[type='file'] {
   margin: 0 30px;
 }
 
-.card-subtitle {
+.card-title {
   font-size: 24px;
   font-weight: 500;
   line-height: 29px;
@@ -181,76 +183,59 @@ input[type='file'] {
 
 .button {
   display: flex;
-  justify-content: center;
-  border-radius: 4px;
+  flex-direction: row;
   justify-content: center;
   align-items: center;
-  cursor: pointer;
-  padding: 0 20px;
   height: 45px;
-  font-weight: 700;
-  font-size: 14px;
-  line-height: 120%;
-  text-decoration: none;
+  gap: 0.75rem;
+  padding: 0 1.75rem;
+  border-radius: 0.25rem;
+  transition: color 0.25s linear;
+  font-weight: 600;
+  text-transform: uppercase;
+  cursor: pointer;
 }
 
-.button-primary{
-  background: #0300ad;
-  color: #ffffff;
-  border: 1px solid #0b0e075c;
+.button-primary {
+  background: var(--primary);
+  color: var(--white);
+  border: 1px solid var(--black);
 }
 
 .button-primary:hover {
-  background: rgba(3, 0, 173, 0.872)
+  background: rgba(3, 0, 173, 0.872);
 }
 
-.button-outline{
-  background: #ffffff;
-  color: #0300ad;
-  border: 1px solid #0300ad;
+.button-outline {
+  background: var(--white);
+  color: var(--primary);
+  border: 1px solid var(--primary);
 }
 
 .button-outline:hover {
   background: rgba(238, 238, 238, 0.247);
 }
 
-.button-icon{
+.button-icon {
   background: transparent;
   border: none;
-  color: white;
+  color: var(--white);
 }
 
 .button-icon:hover {
   background: rgba(238, 238, 238, 0.031);
 }
 
-.button-transparent{
+.button-transparent {
   border: none;
   padding: 0 10px;
   height: 20px;
   background-color: inherit;
   font-size: 12px;
-  color: #0300ad;
+  color: var(--primary);
 }
 
 .button-transparent:hover {
   background: rgba(238, 238, 238, 0.247);
 }
 
-.file-button {
-  display: flex;
-  justify-content: center;
-  border-radius: 4px;
-  justify-content: center;
-  align-items: center;
-  cursor: pointer;
-  padding: 0 20px;
-  height: 45px;
-  font-weight: 700;
-  font-size: 14px;
-  line-height: 120%;
-  text-decoration: none;
-  background: #0300ad;
-  color: #ffffff;
-  border: 1px solid #0b0e075c;
-}

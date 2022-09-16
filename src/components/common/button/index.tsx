@@ -1,31 +1,42 @@
 import React, { FC } from "react";
-import { IButton } from "../../../types";
-import cs from "classnames";
+import classNames from "classnames";
 
-export const Button: FC<IButton> = ({
+type Props = {
+  text?: string;
+  outline?: boolean;
+  onlyIcon?: boolean;
+  transparent?: boolean;
+  primary?: boolean;
+  icon?: React.ReactNode;
+  onClick?: () => void;
+};
+
+const Button: FC<Props> = ({
   text,
-  onClick,
-  icon,
   outline,
-  primary,
   onlyIcon,
   transparent,
+  primary,
+  icon,
+  onClick
 }) => {
   return (
-      <button
-        className={cs(
-          'button',
-          { 'button-outline': outline },
-          { 'button-transparent': transparent },
-          { 'button-primary': primary },
-          { 'button-icon': onlyIcon }
-        )}
-        onClick={onClick}
-      >
-        <>
-          {icon}
-          {text}
-        </>
-      </button>
+    <button
+      className={classNames(
+        "button",
+        { "button-outline": outline },
+        { "button-transparent": transparent },
+        { "button-primary": primary },
+        { "button-icon": onlyIcon }
+      )}
+      onClick={onClick}
+    >
+      <>
+        {!!icon && icon}
+        {!!text && text}
+      </>
+    </button>
   );
 };
+
+export default Button;

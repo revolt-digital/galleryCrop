@@ -1,56 +1,44 @@
-import React, { useState, FC } from "react";
-import { IGalleryCrop } from "./types";
+import React, { FC } from "react";
 import CropImage from "./components/cropImage";
 import Gallery from "./components/gallery";
-import { ImageView } from "./components/imageView";
-import "./styles.css";
 import useGallery from "./hooks/useGallery";
+import "./styles.css";
+export interface Props {
+  aspectRatio: number;
+  onSelect: (image: string) => void;
+}
 
-const GalleryCrop: FC<IGalleryCrop> = ({
-  listOfImages,
-  aspectRatio,
-  maxWidth,
-  maxWeight,
-}) => {
-  const [selected, setSelected] = useState<any>({
-    fileName: "",
-    url: "",
-  });
-  const { images, uploadImage, deleteImageById } = useGallery({ deckid: "1" });
-  const [preview, setPreview] = useState<any>(null);
-  const [cropVisible, setCropVisible] = useState<any>(null);
+const GalleryCrop: FC<Props> = ({ aspectRatio, onSelect }) => {
+  const {
+    images,
+    uploadImage,
+    deleteImage,
+    imageSelected,
+    isEdition,
+    setIsEdition,
+    setEditImage,
+  } = useGallery({ deckid: "1" });
 
-  const selectImage = (id: string) => {
-    const element = images.find((img) => id === img.id);
-
-    setSelected({
-      fileName: element?.fileName,
-      url: element?.url,
-    });
-  };
+  if (isEdition) {
+    return (
+      <CropImage
+        deckid="1"
+        url={imageSelected.url}
+        name={imageSelected.fileName}
+        aspectRatio={aspectRatio}
+        setIsEdition={setIsEdition}
+      />
+    );
+  }
 
   return (
-    <>
-      {cropVisible ? (
-        <CropImage
-          url={selected.url}
-          name={selected.fileName}
-          aspectRatio={aspectRatio}
-          setCropVisible={setCropVisible}
-        />
-      ) : preview ? (
-        <ImageView imgUrl={selected.url} setIsVisible={setPreview} />
-      ) : (
-        <Gallery
-          images={images}
-          uploadImage={uploadImage}
-          deleteImage={deleteImageById}
-          setImageSelected={selectImage}
-          setImageOpen={setPreview}
-          setCropVisible={setCropVisible}
-        />
-      )}
-    </>
+    <Gallery
+      images={images}
+      uploadImage={uploadImage}
+      deleteImage={deleteImage}
+      setEditImage={setEditImage}
+      setIsEdition={setIsEdition}
+    />
   );
 };
 

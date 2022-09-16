@@ -1,24 +1,54 @@
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import {
-  deleteImage,
+  deleteImageById,
   fetchImages,
   saveImage,
   uploadImageProperties,
   uploadImageToS3,
 } from "../services";
-import { getImageProperties, getUrlByExtension } from "../utils";
+import {
+  getFileExtension,
+  getImageProperties,
+  getUrlByExtension,
+} from "../utils";
+import { ImageType, Endpoint } from "../types";
 
 type Props = {
   deckid: string;
 };
 
+const imageSelectState = {
+  url: "",
+  fileName: "",
+};
+
 const useGallery = ({ deckid }: Props) => {
-  const [images, setImages] = useState<any[]>([]);
+  const [items, setItems] = useState<ImageType[]>([]);
+  const [imageSelected, setImageSelected] = useState(imageSelectState);
+  const [isEdition, setIsEdition] = useState<boolean>(false);
+
+  const images: ImageType[] = useMemo(
+    () =>
+      items.reduce((acc: any, curr) => {
+        if (curr.croppedImages.length > 0) {
+          curr.croppedImages.forEach((item) => {
+            acc.push(item);
+          });
+
+          acc.push(curr);
+        } else {
+          acc.push(curr);
+        }
+
+        return acc;
+      }, []),
+    [items]
+  );
 
   const getImages = useCallback(async () => {
     try {
       const response = await fetchImages({
-        endpoint: "/decks/images/",
+        endpoint: Endpoint.GET_IMAGES,
         data: {
           deckid,
           page: 1,
@@ -26,63 +56,69 @@ const useGallery = ({ deckid }: Props) => {
         },
       });
 
-      setImages(response.items);
+      setItems(response.items);
     } catch (error) {
       console.log(error);
     }
-  }, [setImages, deckid]);
+  }, [deckid]);
 
-  const deleteImageById = async (imageId: number) => {
-    try {
-      const response = await deleteImage({
-        endpoint: "/decks/images/delete",
-        data: {
-          deckid,
-          imageId,
-        },
-      });
-
-      console.log(response);
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
-  const uploadImage = async (files: any, type: number) => {
-    const extension = files.name.split(".").pop();
-    const image = await getImageProperties(files);
-    const data = { ...image, deckid, item: type };
+  const uploadImage = async (file: any, type: number) => {
+    const image = await getImageProperties(file);
+    const extension = getFileExtension(file.name);
 
     try {
       const { url } = await uploadImageProperties({
-        endpoint: "/decks/image/upload_url",
-        data,
+        endpoint: Endpoint.UPLOAD_IMAGE,
+        data: { ...image, deckid, item: type },
       });
 
       if (url) {
         const { status } = await uploadImageToS3({
           endpoint: url,
-          data: files,
+          data: file,
         });
 
         if (status === 200) {
-          const shortenedUrl = getUrlByExtension(url, extension);
+          const shortenedUrl = getUrlByExtension(url, extension!);
 
-          const response = await saveImage({
-            endpoint: "/decks/image/save",
+          await saveImage({
+            endpoint: Endpoint.SAVE_IMAGE,
             data: {
               deckid,
               url: shortenedUrl,
             },
           });
 
-          if (response) {
-            getImages();
-          }
+          getImages();
         }
       }
     } catch (error) {
       console.log(error);
+    }
+  };
+
+  const deleteImage = async (imageId: number) => {
+    try {
+      await deleteImageById({
+        endpoint: Endpoint.DELETE_IMAGE,
+        data: {
+          deckid,
+          imageId,
+        },
+      });
+
+      getImages();
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const setEditImage = (id: number) => {
+    const image = images.find((item) => id === item.id);
+
+    if (image) {
+      setImageSelected(image);
+      setIsEdition(true);
     }
   };
 
@@ -92,9 +128,13 @@ const useGallery = ({ deckid }: Props) => {
 
   return {
     images,
+    imageSelected,
+    isEdition,
     uploadImage,
     getImages,
-    deleteImageById,
+    deleteImage,
+    setEditImage,
+    setIsEdition,
   };
 };
 

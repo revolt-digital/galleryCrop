@@ -311,12 +311,17 @@ button[disabled]:hover {
 .loader {
   width: 20px;
   height: 20px;
-  border: 2px solid #fff;
+  border: 2px solid var(--white);
   border-bottom-color: transparent;
   border-radius: 50%;
   display: inline-block;
   box-sizing: border-box;
   animation: rotation 1s linear infinite;
+}
+
+.loader-solid {
+  border-color: var(--white);
+  border-bottom-color: var(--primary);
 }
 
 @keyframes rotation {

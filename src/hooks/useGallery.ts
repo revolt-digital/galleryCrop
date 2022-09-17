@@ -19,9 +19,9 @@ type Props = {
 
 const useGallery = ({ deckid }: Props) => {
   const [items, setItems] = useState<ImageType[]>([]);
-  const [currentImage, setCurrentImage] = useState<ImageType>();
+  const [currentImage, setCurrentImage] = useState<ImageType | null>(null);
 
-  const [imageSelected, setImageSelected] = useState<SelectedImageType>();
+  const [imageSelected, setImageSelected] = useState<SelectedImageType | null>(null);
   const [isEdition, setIsEdition] = useState<boolean>(false);
   const [uploadImageLoading, setUploadImageLoading] = useState(false);
 
@@ -63,6 +63,7 @@ const useGallery = ({ deckid }: Props) => {
   const uploadImage = useCallback(
     async (file: any, type: number) => {
       setUploadImageLoading(true);
+
       const image = await getImageProperties(file);
       const extension = getFileExtension(file.name);
 

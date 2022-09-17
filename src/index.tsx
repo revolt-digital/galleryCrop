@@ -1,19 +1,58 @@
-import React from "react";
-import ReactDOM from "react-dom/client";
-import Component from "./component";
+import React, { FC } from "react";
+import CropImage from "./components/cropImage";
+import Gallery from "./components/gallery";
+import useGallery from "./hooks/useGallery";
+import "./styles.css";
+import { ImageType } from "./types";
+export interface Props {
+  deckid: string;
+  aspectRatio: number;
+  onSelect: (image: ImageType) => void;
+}
 
-const root = ReactDOM.createRoot(
-  document.getElementById("root") as HTMLElement
-);
+const GalleryCrop: FC<Props> = ({ deckid, aspectRatio, onSelect }) => {
+  const {
+    images,
+    uploadImage,
+    uploadImageLoading,
+    deleteImage,
+    currentImage,
+    isEdition,
+    setIsEdition,
+    setEditImage,
+    getImages,
+    imageSelected,
+    setImageSelected,
+  } = useGallery({ deckid });
 
-// @todo: momentarily disabled because it affects the correct functioning of react-dnd
-root.render(
-  // <React.StrictMode>
-  <Component />
+  if (isEdition) {
+    return (
+      <CropImage
+        deckid={deckid}
+        uploadImage={uploadImage}
+        uploadImageLoading={uploadImageLoading}
+        url={currentImage?.url!}
+        name={currentImage?.fileName!}
+        aspectRatio={aspectRatio}
+        setIsEdition={setIsEdition}
+      />
+    );
+  }
 
-  // </React.StrictMode>
-);
+  return (
+    <Gallery
+      images={images}
+      uploadImage={uploadImage}
+      uploadImageLoading={uploadImageLoading}
+      deleteImage={deleteImage}
+      setEditImage={setEditImage}
+      setIsEdition={setIsEdition}
+      getImages={getImages}
+      imageSelected={imageSelected}
+      setImageSelected={setImageSelected}
+      onSelect={onSelect}
+    />
+  );
+};
 
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
+export default GalleryCrop;

@@ -1,7 +1,7 @@
 import React, { FC, useEffect } from "react";
 import AddPhotoAlternateIcon from "@mui/icons-material/AddPhotoAlternate";
 import ImageCard from "../imageCard";
-import { Button, Card, FileButton } from "../common";
+import { Button, Card, FileButton, Spinner } from "../common";
 import { ImageType, SelectedImageType } from "../../types";
 
 type Props = {
@@ -9,25 +9,29 @@ type Props = {
   setEditImage: React.Dispatch<number>;
   setIsEdition: React.Dispatch<boolean>;
   uploadImage: (files: File, type: number) => Promise<void>;
+  uploadImageLoading: boolean;
   getImages: () => Promise<void>;
-  deleteImage: (id: number) => void;
-  imageSelected: SelectedImageType | undefined;
-  setImageSelected: React.Dispatch<SelectedImageType | undefined>;
+  deleteImage: (imageId: number) => Promise<void>;
+  imageSelected: SelectedImageType | null;
+  setImageSelected: React.Dispatch<SelectedImageType | null>;
   onSelect: (image: SelectedImageType) => void;
 };
 
 const Gallery: FC<Props> = ({
   images,
   uploadImage,
+  uploadImageLoading,
   deleteImage,
   setEditImage,
   setIsEdition,
   getImages,
   imageSelected,
   setImageSelected,
-  onSelect
+  onSelect,
 }) => {
   const handleUpload = async (event: React.ChangeEvent<any>) => {
+    if(uploadImageLoading)  return;
+    
     const file = event.target.files[0];
     await uploadImage(file, 0);
   };
@@ -41,10 +45,17 @@ const Gallery: FC<Props> = ({
       title="Select an image from the library"
       buttons={
         <div className="gallery-button">
-          <Button text="confirm" disabled={!imageSelected} primary onClick={() => onSelect(imageSelected!)} />
+          <Button
+            text="confirm"
+            disabled={!imageSelected}
+            primary
+            onClick={() => onSelect(imageSelected!)}
+          />
           <FileButton
             text="upload from your device"
-            icon={<AddPhotoAlternateIcon />}
+            icon={
+              uploadImageLoading ? <Spinner solid /> : <AddPhotoAlternateIcon />
+            }
             outline
             onChange={(event) => handleUpload(event)}
           />
@@ -61,7 +72,7 @@ const Gallery: FC<Props> = ({
               deleteImage={deleteImage}
               setIsEdition={setIsEdition}
               imageSelected={imageSelected}
-              setImageSelected={setImageSelected} 
+              setImageSelected={setImageSelected}
             />
           ))}
       </div>

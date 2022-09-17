@@ -2,12 +2,13 @@ import React, { FC } from "react";
 import Cropper from "react-easy-crop";
 import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
 import { Button, Card, InputRange, Spinner } from "../common";
-import useGallery from "../../hooks/useGallery";
 import useCrop from "../../hooks/useCrop";
 import { getCroppedImg, normalizeFilename } from "../../utils";
 
 type Props = {
   deckid: string;
+  uploadImage: (file: any, type: number) => Promise<void>;
+  uploadImageLoading: boolean;
   url: string;
   name: string;
   setIsEdition: React.Dispatch<boolean>;
@@ -20,9 +21,9 @@ const CropImage: FC<Props> = ({
   name,
   setIsEdition,
   aspectRatio,
+  uploadImage,
+  uploadImageLoading,
 }) => {
-  const { uploadImage, uploadImageLoading } = useGallery({ deckid });
-  
   const { zoom, setZoom, crop, setCrop, croppedArea, onCropComplete } =
     useCrop();
 
@@ -45,7 +46,13 @@ const CropImage: FC<Props> = ({
             icon={<ArrowBackIosIcon />}
             onClick={() => setIsEdition(false)}
           />
-          <Button text="save" icon={uploadImageLoading && <Spinner />} primary onClick={onCrop} />
+          <Button
+            text="save"
+            icon={uploadImageLoading && <Spinner />}
+            disabled={uploadImageLoading}
+            primary
+            onClick={onCrop}
+          />
         </div>
       }
     >

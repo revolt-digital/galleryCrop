@@ -1,5 +1,18 @@
 import React from "react";
+import classNames from "classnames";
 
-const Spinner = () => <span className="loader"></span>;
+type Props = {
+  solid?: boolean;
+}
+
+const Spinner = ({ solid }: Props) => {
+  return (
+    <span className={
+      classNames("loader", {
+        "loader-solid": solid
+      })
+    }></span>
+  )
+}
 
 export default Spinner;

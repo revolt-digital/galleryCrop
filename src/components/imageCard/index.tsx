@@ -7,11 +7,11 @@ type Props = {
   id: number;
   fileName: string;
   url: string;
-  deleteImage: (id: number) => void;
+  deleteImage: (imageId: number) => Promise<void>;
   setEditImage: React.Dispatch<number>;
   setIsEdition: React.Dispatch<boolean>;
-  imageSelected: SelectedImageType | undefined;
-  setImageSelected: React.Dispatch<SelectedImageType | undefined>;
+  imageSelected: SelectedImageType | null;
+  setImageSelected: React.Dispatch<SelectedImageType | null>;
 };
 
 const ImageCard: FC<Props> = ({
@@ -27,6 +27,11 @@ const ImageCard: FC<Props> = ({
   const handleSelected = () => {
     setImageSelected({ url, id, fileName });
   };
+
+  const handleDelete = async () => {
+    await deleteImage(id);
+    setImageSelected(null);
+  }
 
   return (
     <div
@@ -46,7 +51,7 @@ const ImageCard: FC<Props> = ({
               setIsEdition(true);
             }}
           />
-          <Button text="delete" onClick={() => deleteImage(id)} transparent />
+          <Button text="delete" onClick={handleDelete} transparent />
         </div>
         <div className="image-description">
           <span className="image-name-label">{fileName}</span>

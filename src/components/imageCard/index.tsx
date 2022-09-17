@@ -1,14 +1,18 @@
+import classNames from "classnames";
 import React, { FC } from "react";
+import { SelectedImageType } from "../../types";
 import { Button } from "../common";
 
 type Props = {
   id: number;
   fileName: string;
   url: string;
-  setEditImage: React.Dispatch<any>;
   deleteImage: (id: number) => void;
-  setIsEdition : React.Dispatch<boolean>;
-}
+  setEditImage: React.Dispatch<number>;
+  setIsEdition: React.Dispatch<boolean>;
+  imageSelected: SelectedImageType | undefined;
+  setImageSelected: React.Dispatch<SelectedImageType | undefined>;
+};
 
 const ImageCard: FC<Props> = ({
   id,
@@ -17,9 +21,20 @@ const ImageCard: FC<Props> = ({
   deleteImage,
   setEditImage,
   setIsEdition,
+  imageSelected,
+  setImageSelected
 }) => {
+  const handleSelected = () => {
+    setImageSelected({ url, id, fileName });
+  };
+
   return (
-    <div className="image-container">
+    <div
+      className={classNames("image-container", {
+        "image-selected": imageSelected?.id === id,
+      })}
+      onClick={handleSelected}
+    >
       <img className="image-thumbnail" src={url} alt="" />
       <div className="image-wrapper">
         <div className="icon-container">
@@ -31,11 +46,7 @@ const ImageCard: FC<Props> = ({
               setIsEdition(true);
             }}
           />
-          <Button
-            text="delete"
-            onClick={() => deleteImage(id)}
-            transparent
-          />
+          <Button text="delete" onClick={() => deleteImage(id)} transparent />
         </div>
         <div className="image-description">
           <span className="image-name-label">{fileName}</span>

@@ -1,4 +1,4 @@
-import { useCallback, useState } from "react";
+import { useState } from "react";
 import { Area, Point } from "react-easy-crop";
 
 const useCrop = () => {
@@ -6,9 +6,9 @@ const useCrop = () => {
   const [croppedArea, setCroppedArea] = useState<Area>();
   const [crop, setCrop] = useState<Point>({ x: 0, y: 0 });
 
-  const onCropComplete = useCallback((_: Area, croppedAreaPixels: Area) => {
+  const onCropComplete = (_: Area, croppedAreaPixels: Area) => {
     setCroppedArea(croppedAreaPixels);
-  }, []);
+  };
 
   return {
     crop,

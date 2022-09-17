@@ -1,14 +1,19 @@
-import React, { FC } from "react";
+import React, { FC, useEffect } from "react";
+import AddPhotoAlternateIcon from "@mui/icons-material/AddPhotoAlternate";
 import ImageCard from "../imageCard";
-import { Card, FileButton } from "../common";
-import { ImageType } from "../../types";
+import { Button, Card, FileButton } from "../common";
+import { ImageType, SelectedImageType } from "../../types";
 
 type Props = {
   images: ImageType[];
-  uploadImage: (files: File, type: number) => Promise<void>;
-  setEditImage: React.Dispatch<any>;
-  deleteImage: (id: number) => void;
+  setEditImage: React.Dispatch<number>;
   setIsEdition: React.Dispatch<boolean>;
+  uploadImage: (files: File, type: number) => Promise<void>;
+  getImages: () => Promise<void>;
+  deleteImage: (id: number) => void;
+  imageSelected: SelectedImageType | undefined;
+  setImageSelected: React.Dispatch<SelectedImageType | undefined>;
+  onSelect: (image: SelectedImageType) => void;
 };
 
 const Gallery: FC<Props> = ({
@@ -17,20 +22,31 @@ const Gallery: FC<Props> = ({
   deleteImage,
   setEditImage,
   setIsEdition,
+  getImages,
+  imageSelected,
+  setImageSelected,
+  onSelect
 }) => {
-  const handleUploadImage = async (event: React.ChangeEvent<any>) => {
+  const handleUpload = async (event: React.ChangeEvent<any>) => {
     const file = event.target.files[0];
     await uploadImage(file, 0);
   };
+
+  useEffect(() => {
+    getImages();
+  }, [getImages]);
 
   return (
     <Card
       title="Select an image from the library"
       buttons={
         <div className="gallery-button">
+          <Button text="confirm" disabled={!imageSelected} primary onClick={() => onSelect(imageSelected!)} />
           <FileButton
-            text="upload image"
-            onChange={(event) => handleUploadImage(event)}
+            text="upload from your device"
+            icon={<AddPhotoAlternateIcon />}
+            outline
+            onChange={(event) => handleUpload(event)}
           />
         </div>
       }
@@ -44,6 +60,8 @@ const Gallery: FC<Props> = ({
               setEditImage={setEditImage}
               deleteImage={deleteImage}
               setIsEdition={setIsEdition}
+              imageSelected={imageSelected}
+              setImageSelected={setImageSelected} 
             />
           ))}
       </div>

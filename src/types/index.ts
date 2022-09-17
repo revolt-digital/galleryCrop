@@ -13,6 +13,18 @@ export type ImageType = {
   croppedImages: ImageType[]
 }
 
+export type SelectedImageType = {
+   fileName: string, 
+   url: string,
+   id: number,
+}
+
+export enum Methods {
+  GET = "GET",
+  POST = "POST",
+  PUT = "PUT",
+}
+
 export enum Endpoint {
   GET_IMAGES = "/decks/images/",
   UPLOAD_IMAGE = "/decks/image/upload_url",

@@ -15,6 +15,7 @@ the names were improvised, they need to be changed
   --white: #ffffff;
   --black: #000000;
   --gray: #e1e1e7;
+  --gray-dark: #a2a6be;
 }
 
 body {
@@ -33,6 +34,48 @@ input[type="file"] {
   height: 0;
   overflow: hidden;
   opacity: 0;
+}
+
+input[type="range"] {
+  -webkit-appearance: none;
+  margin-right: 15px;
+  width: 200px;
+  height: 7px;
+  background: rgba(255, 255, 255, 0.6);
+  border-radius: 5px;
+  background-image: linear-gradient(var(--gray), var(--gray));
+  background-size: 100%;
+  background-repeat: no-repeat;
+}
+
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  height: 20px;
+  width: 20px;
+  border-radius: 50%;
+  background: var(--primary);
+  cursor: pointer;
+  box-shadow: 0 0 2px 0 var(--gray);
+}
+
+input[type="range"]::-moz-range-thumb {
+  -webkit-appearance: none;
+  height: 20px;
+  width: 20px;
+  border-radius: 50%;
+  background: var(--primary);
+  cursor: pointer;
+  box-shadow: 0 0 2px 0 var(--gray);
+}
+
+input[type="range"]::-ms-thumb {
+  -webkit-appearance: none;
+  height: 20px;
+  width: 20px;
+  border-radius: 50%;
+  background: var(--primary);
+  cursor: pointer;
+  box-shadow: 0 0 2px 0 var(--gray);
 }
 
 .image-container {
@@ -90,7 +133,11 @@ input[type="file"] {
   font-weight: 500;
   font-size: 12px;
   line-height: 145%;
-  color: #a2a6be;
+  color: var(--gray);
+}
+
+.image-selected {
+  border: 1px solid var(--primary);
 }
 
 .crop-image-container {
@@ -116,7 +163,7 @@ input[type="file"] {
   grid-template-columns: repeat(4, 1fr);
   overflow: hidden;
   gap: 0.5rem;
-  height: 440px;
+  height: 500px;
   overflow-y: auto;
   border: 2px solid var(--alternative);
   border-radius: 10px;
@@ -130,7 +177,7 @@ input[type="file"] {
 
 .gallery-button {
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
 }
 
 .image-view {
@@ -194,12 +241,26 @@ input[type="file"] {
   font-weight: 600;
   text-transform: uppercase;
   cursor: pointer;
+  box-sizing: border-box;
+  font-size: 14px;
+}
+
+button[disabled] {
+  background-color: var(--gray-dark);
+  color: var(--white);
+  border: var(--gray-dark);
+}
+
+button[disabled]:hover {
+  background-color: var(--gray-dark);
+  color: var(--white);
+  border: var(--gray-dark);
 }
 
 .button-primary {
   background: var(--primary);
   color: var(--white);
-  border: 1px solid var(--black);
+  border: 1px solid var(--primary);
 }
 
 .button-primary:hover {
@@ -239,3 +300,30 @@ input[type="file"] {
   background: rgba(238, 238, 238, 0.247);
 }
 
+.file-button-text {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.loader {
+  width: 20px;
+  height: 20px;
+  border: 2px solid #fff;
+  border-bottom-color: transparent;
+  border-radius: 50%;
+  display: inline-block;
+  box-sizing: border-box;
+  animation: rotation 1s linear infinite;
+}
+
+@keyframes rotation {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}

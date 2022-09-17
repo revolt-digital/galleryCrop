@@ -1,3 +1,5 @@
+import { Methods } from "../types";
+
 const API_URL = "http://ec2-18-117-221-135.us-east-2.compute.amazonaws.com";
 
 type Config = { endpoint: string; data: any };
@@ -9,7 +11,7 @@ export const uploadImageProperties = async ({ endpoint, data }: Config) => {
   let url = `${API_URL}${endpoint}`;
 
   const response = await fetch(url, {
-    method: "POST",
+    method: Methods.POST,
     headers,
     body: JSON.stringify(data),
   });
@@ -28,7 +30,7 @@ export const saveImage = async ({ endpoint, data }: Config) => {
   const url = `${API_URL}${endpoint}`;
 
   const response = await fetch(url, {
-    method: "POST",
+    method: Methods.POST,
     headers,
     body: JSON.stringify(data),
   });
@@ -40,7 +42,7 @@ export const uploadImageToS3 = async ({ endpoint, data }: Config) => {
   let url = `${endpoint}`;
 
   const response = await fetch(url, {
-    method: "PUT",
+    method: Methods.PUT,
     body: data,
   });
 
@@ -53,7 +55,7 @@ export const fetchImages = async ({ endpoint, data }: Config) => {
   headers.append("Content-Type", "application/json");
 
   const response = await fetch(url, {
-    method: "POST",
+    method: Methods.POST,
     headers,
     body: JSON.stringify(data),
   });
@@ -67,7 +69,7 @@ export const deleteImageById = async ({ endpoint, data }: Config) => {
   headers.append("Content-Type", "application/json");
 
   const response = await fetch(url, {
-    method: "POST",
+    method: Methods.POST,
     headers,
     body: JSON.stringify(data),
   });

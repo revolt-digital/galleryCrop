@@ -3,28 +3,33 @@ import CropImage from "./components/cropImage";
 import Gallery from "./components/gallery";
 import useGallery from "./hooks/useGallery";
 import "./styles.css";
+import { ImageType } from "./types";
 export interface Props {
+  deckid: string;
   aspectRatio: number;
-  onSelect: (image: string) => void;
+  onSelect: (image: ImageType) => void;
 }
 
-const GalleryCrop: FC<Props> = ({ aspectRatio, onSelect }) => {
+const GalleryCrop: FC<Props> = ({ deckid, aspectRatio, onSelect }) => {
   const {
     images,
     uploadImage,
     deleteImage,
-    imageSelected,
+    currentImage,
     isEdition,
     setIsEdition,
     setEditImage,
-  } = useGallery({ deckid: "1" });
+    getImages,
+    imageSelected,
+    setImageSelected,
+  } = useGallery({ deckid });
 
   if (isEdition) {
     return (
       <CropImage
-        deckid="1"
-        url={imageSelected.url}
-        name={imageSelected.fileName}
+        deckid={deckid}
+        url={currentImage?.url!}
+        name={currentImage?.fileName!}
         aspectRatio={aspectRatio}
         setIsEdition={setIsEdition}
       />
@@ -38,6 +43,10 @@ const GalleryCrop: FC<Props> = ({ aspectRatio, onSelect }) => {
       deleteImage={deleteImage}
       setEditImage={setEditImage}
       setIsEdition={setIsEdition}
+      getImages={getImages}
+      imageSelected={imageSelected}
+      setImageSelected={setImageSelected}
+      onSelect={onSelect}
     />
   );
 };

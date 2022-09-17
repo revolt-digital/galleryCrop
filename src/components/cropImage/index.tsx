@@ -1,9 +1,10 @@
 import React, { FC } from "react";
 import Cropper from "react-easy-crop";
-import { getCroppedImg, normalizeFilename } from "../../utils";
-import { Button, Card, InputRange } from "../common";
+import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
+import { Button, Card, InputRange, Spinner } from "../common";
 import useGallery from "../../hooks/useGallery";
 import useCrop from "../../hooks/useCrop";
+import { getCroppedImg, normalizeFilename } from "../../utils";
 
 type Props = {
   deckid: string;
@@ -20,20 +21,17 @@ const CropImage: FC<Props> = ({
   setIsEdition,
   aspectRatio,
 }) => {
-  const { uploadImage } = useGallery({ deckid });
+  const { uploadImage, uploadImageLoading } = useGallery({ deckid });
+  
   const { zoom, setZoom, crop, setCrop, croppedArea, onCropComplete } =
-  useCrop();
+    useCrop();
 
   const onCrop = async () => {
     const filename = normalizeFilename(deckid, name);
-
-    const croppedImage = await getCroppedImg(
-      url,
-      filename,
-      croppedArea
-    );
+    const croppedImage = await getCroppedImg(url, filename, croppedArea);
 
     await uploadImage(croppedImage, 1);
+    setIsEdition(false);
   };
 
   return (
@@ -41,8 +39,13 @@ const CropImage: FC<Props> = ({
       title="Edit the image"
       buttons={
         <div className="crop-image-footer">
-          <Button text="back" outline onClick={() => setIsEdition(false)} />
-          <Button text="save" primary onClick={onCrop} />
+          <Button
+            text="back"
+            outline
+            icon={<ArrowBackIosIcon />}
+            onClick={() => setIsEdition(false)}
+          />
+          <Button text="save" icon={uploadImageLoading && <Spinner />} primary onClick={onCrop} />
         </div>
       }
     >

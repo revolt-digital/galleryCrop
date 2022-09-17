@@ -8,6 +8,7 @@ type Props = {
   transparent?: boolean;
   primary?: boolean;
   icon?: React.ReactNode;
+  disabled?: boolean;
   onClick?: () => void;
 };
 
@@ -18,6 +19,7 @@ const Button: FC<Props> = ({
   transparent,
   primary,
   icon,
+  disabled,
   onClick
 }) => {
   return (
@@ -30,6 +32,7 @@ const Button: FC<Props> = ({
         { "button-icon": onlyIcon }
       )}
       onClick={onClick}
+      disabled={disabled}
     >
       <>
         {!!icon && icon}

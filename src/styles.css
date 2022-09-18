@@ -106,11 +106,13 @@ input[type="range"]::-ms-thumb {
 .image-description {
   display: flex;
   flex-direction: column;
+  justify-content: center;
   align-items: center;
 }
 
 .image-thumbnail {
   width: 100%;
+  height: 180px;
   object-fit: contain;
   border-radius: 4px;
 }
@@ -163,7 +165,7 @@ input[type="range"]::-ms-thumb {
   grid-template-columns: repeat(4, 1fr);
   overflow: hidden;
   gap: 0.5rem;
-  height: 500px;
+  height: 55vh;
   overflow-y: auto;
   border: 2px solid var(--alternative);
   border-radius: 10px;
@@ -331,4 +333,11 @@ button[disabled]:hover {
   100% {
     transform: rotate(360deg);
   }
+}
+
+.text-ellipsis {
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
 }

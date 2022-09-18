@@ -1,7 +1,10 @@
 import React, { FC, useEffect } from "react";
 import AddPhotoAlternateIcon from "@mui/icons-material/AddPhotoAlternate";
-import ImageCard from "../imageCard";
-import { Button, Card, FileButton, Spinner } from "../common";
+import ImageCard from "../ImageCard/ImageCard";
+import Card from "../Common/Card/Card";
+import Button from "../Common/Button/Button";
+import FileButton from "../Common/FileButton/FileButton";
+import Spinner from "../Common/Spinner/Spinner";
 import { ImageType, SelectedImageType } from "../../types";
 
 type Props = {
@@ -30,8 +33,8 @@ const Gallery: FC<Props> = ({
   onSelect,
 }) => {
   const handleUpload = async (event: React.ChangeEvent<any>) => {
-    if(uploadImageLoading)  return;
-    
+    if (uploadImageLoading) return;
+
     const file = event.target.files[0];
     await uploadImage(file, 0);
   };

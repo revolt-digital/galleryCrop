@@ -27,7 +27,7 @@ const FileButton = ({
         { "button-primary": primary }
       )}
     >
-      <input onChange={onChange} type="file" />
+      <input onChange={onChange} type="file" accept="image/png, image/gif, image/jpeg, image/jpg" />
       <span className="file-button-text">
         {!!icon && icon}
         {!!text && text}

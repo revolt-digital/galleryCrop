@@ -1,7 +1,7 @@
 import classNames from "classnames";
 import React, { FC } from "react";
 import { SelectedImageType } from "../../types";
-import { Button } from "../common";
+import Button from "../Common/Button/Button";
 
 type Props = {
   id: number;
@@ -53,7 +53,7 @@ const ImageCard: FC<Props> = ({
           />
           <Button text="delete" onClick={handleDelete} transparent />
         </div>
-        <div className="image-description">
+        <div className="image-description text-ellipsis">
           <span className="image-name-label">{fileName}</span>
         </div>
       </div>

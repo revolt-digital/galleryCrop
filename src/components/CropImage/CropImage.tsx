@@ -1,10 +1,10 @@
 import React, { FC } from "react";
 import Cropper from "react-easy-crop";
 import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
-import Card from "../Common/Card/card";
-import Button from "../Common/Button/button";
+import Card from "../Common/Card/Card";
+import Button from "../Common/Button/Button";
 import Spinner from "../Common/Spinner/Spinner";
-import InputRange from "../Common/InputRange/inputRange";
+import InputRange from "../Common/InputRange/InputRange";
 import useCrop from "../../hooks/useCrop";
 import { getCroppedImg, normalizeFilename } from "../../utils";
 

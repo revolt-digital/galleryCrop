@@ -1,10 +1,10 @@
 import React, { FC, useEffect } from "react";
 import AddPhotoAlternateIcon from "@mui/icons-material/AddPhotoAlternate";
-import ImageCard from "../ImageCard/imageCard";
-import Card from "../Common/Card/card";
-import Button from "../Common/Button/button";
-import FileButton from "../Common/FileButton/fileButton";
-import Spinner from "../Common/Spinner/spinner";
+import ImageCard from "../ImageCard/ImageCard";
+import Card from "../Common/Card/Card";
+import Button from "../Common/Button/Button";
+import FileButton from "../Common/FileButton/FileButton";
+import Spinner from "../Common/Spinner/Spinner";
 import { ImageType, SelectedImageType } from "../../types";
 
 type Props = {

@@ -1,6 +1,6 @@
 import React, { FC } from "react";
-import CropImage from "./components/CropImage/CropImage";
-import Gallery from "./components/Gallery/Gallery";
+import CropImage from "./components/CropImage/cropImage";
+import Gallery from "./components/Gallery/gallery";
 import useGallery from "./hooks/useGallery";
 import "./styles.css";
 import { ImageType } from "./types";

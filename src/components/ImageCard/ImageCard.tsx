@@ -1,7 +1,7 @@
 import classNames from "classnames";
 import React, { FC } from "react";
 import { SelectedImageType } from "../../types";
-import Button from "../Common/Button/Button";
+import Button from "../Common/Button/button";
 
 type Props = {
   id: number;

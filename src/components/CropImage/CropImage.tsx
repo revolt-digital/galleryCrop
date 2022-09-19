@@ -16,6 +16,7 @@ type Props = {
   name: string;
   setIsEdition: React.Dispatch<boolean>;
   aspectRatio: string;
+  cropShape: "rect" | "round";
 };
 
 const CropImage: FC<Props> = ({
@@ -26,6 +27,7 @@ const CropImage: FC<Props> = ({
   aspectRatio,
   uploadImage,
   uploadImageLoading,
+  cropShape
 }) => {
   const { zoom, setZoom, crop, setCrop, croppedArea, onCropComplete } =
     useCrop();
@@ -70,6 +72,7 @@ const CropImage: FC<Props> = ({
               onCropChange={setCrop}
               onCropComplete={onCropComplete}
               onZoomChange={setZoom}
+              cropShape={cropShape}
             />
           </div>
         </div>

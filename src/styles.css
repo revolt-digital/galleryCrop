@@ -187,7 +187,7 @@ input[type="range"]::-ms-thumb {
   overflow-y: auto;
   border: 2px solid var(--alternative);
   border-radius: 10px;
-  padding: 0.5rem;
+  padding: 1rem;
 }
 
 .crop-image-range-container input {

@@ -1,12 +1,61 @@
-import React from 'react';
-import ReactDOM from 'react-dom/client';
-import GalleryCrop from './galleryCrop';
+import React, { FC } from "react";
+import CropImage from "./components/CropImage/CropImage";
+import Gallery from "./components/Gallery/Gallery";
+import useGallery from "./hooks/useGallery";
+import "./styles.css";
+import { ImageType } from "./types";
+export interface Props {
+  deckid: string;
+  aspectRatio: string;
+  onSelect: (image: ImageType) => void;
+  cropShape: "rect" | "round";
+}
 
-const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement);
+const GalleryCrop: FC<Props> = ({ deckid, aspectRatio, onSelect, cropShape }) => {
+  const {
+    images,
+    uploadImage,
+    uploadImageLoading,
+    deleteImage,
+    currentImage,
+    isEdition,
+    setIsEdition,
+    setEditImage,
+    getImages,
+    imageSelected,
+    setImageSelected
+  } = useGallery({ deckid, aspectRatio });
 
-// @todo: momentarily disabled because it affects the correct functioning of react-dnd
-root.render(
-  // <React.StrictMode>
-    <GalleryCrop aspectRatio='1/1' onSelect={() => {}} deckid="1" cropShape="round" />
-  // </React.StrictMode>
-);
+  if (isEdition) {
+    return (
+      <CropImage
+        deckid={deckid}
+        uploadImage={uploadImage}
+        uploadImageLoading={uploadImageLoading}
+        url={currentImage?.url!}
+        name={currentImage?.fileName!}
+        aspectRatio={aspectRatio}
+        setIsEdition={setIsEdition}
+        cropShape={cropShape}
+      />
+    );
+  }
+
+  return (
+    <Gallery
+      images={images}
+      uploadImage={uploadImage}
+      uploadImageLoading={uploadImageLoading}
+      deleteImage={deleteImage}
+      setEditImage={setEditImage}
+      setIsEdition={setIsEdition}
+      getImages={getImages}
+      imageSelected={imageSelected}
+      setImageSelected={setImageSelected}
+      aspectRatio={aspectRatio}
+      onSelect={onSelect}
+    />
+  );
+};
+
+export default GalleryCrop;

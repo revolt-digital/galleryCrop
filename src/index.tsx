@@ -6,7 +6,7 @@ import "./styles.css";
 import { ImageType } from "./types";
 export interface Props {
   deckid: string;
-  aspectRatio: number;
+  aspectRatio: string;
   onSelect: (image: ImageType) => void;
 }
 
@@ -23,7 +23,7 @@ const GalleryCrop: FC<Props> = ({ deckid, aspectRatio, onSelect }) => {
     getImages,
     imageSelected,
     setImageSelected,
-  } = useGallery({ deckid });
+  } = useGallery({ deckid, aspectRatio });
 
   if (isEdition) {
     return (
@@ -50,6 +50,7 @@ const GalleryCrop: FC<Props> = ({ deckid, aspectRatio, onSelect }) => {
       getImages={getImages}
       imageSelected={imageSelected}
       setImageSelected={setImageSelected}
+      aspectRatio={aspectRatio}
       onSelect={onSelect}
     />
   );

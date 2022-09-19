@@ -7,7 +7,11 @@ const createImage = (url: any) =>
     image.src = url;
   });
 
-export async function getCroppedImg(imageSrc: any, name: string, pixelCrop: any) {
+export async function getCroppedImg(
+  imageSrc: any,
+  name: string,
+  pixelCrop: any
+) {
   const image = await createImage(imageSrc);
   const canvas = document.createElement("canvas");
   canvas.width = pixelCrop.width;
@@ -30,9 +34,9 @@ export async function getCroppedImg(imageSrc: any, name: string, pixelCrop: any)
 
   return new Promise((resolve, reject) => {
     canvas.toBlob((file) => {
-      console.log(name)
-      const myFile = new File([file!], `${name}` );
-   
+      console.log(name);
+      const myFile = new File([file!], `${name}`);
+
       resolve(myFile);
     });
   });
@@ -47,7 +51,6 @@ export function getAspectRatio(wi: number, he: number) {
   if (h < 0) h = -h;
 
   if (h > w) {
-    
     let temp = w;
     w = h;
     h = temp;
@@ -74,17 +77,18 @@ export function getAspectRatio(wi: number, he: number) {
   return wi / d + "/" + he / d;
 }
 
-const getHeightAndWidthFromDataUrl = (dataURL: string) => new Promise(resolve => {
-  const img = new Image()
-  img.onload = () => {
-    resolve({
-      height: img.height,
-      width: img.width
-    })
-  }
+const getHeightAndWidthFromDataUrl = (dataURL: string) =>
+  new Promise((resolve) => {
+    const img = new Image();
+    img.onload = () => {
+      resolve({
+        height: img.height,
+        width: img.width,
+      });
+    };
 
-  img.src = dataURL
-})
+    img.src = dataURL;
+  });
 
 export async function getImageProperties(file: File) {
   const url = URL.createObjectURL(file);
@@ -92,22 +96,23 @@ export async function getImageProperties(file: File) {
 
   imgProps.aspectRatio = getAspectRatio(imgProps.width, imgProps.height);
   imgProps.fileName = removeExtension(file.name);
-  imgProps.extension = file.name.split('.').pop();
+  imgProps.extension = file.name.split(".").pop();
 
-
-  return imgProps
-
+  return imgProps;
 }
 
 export function getUrlByExtension(url: string, extension: string) {
-  const index = url.lastIndexOf(`.${extension}`)
-  const shortenedUrl = url.split("").splice(0, index + extension.length + 1).join("");
+  const index = url.lastIndexOf(`.${extension}`);
+  const shortenedUrl = url
+    .split("")
+    .splice(0, index + extension.length + 1)
+    .join("");
 
   return shortenedUrl;
 }
 
 export function getFileExtension(fileName: string) {
-  const extension = fileName.split('.').pop();
+  const extension = fileName.split(".").pop();
 
   return extension;
 }
@@ -124,4 +129,11 @@ export function normalizeFilename(id: string, filename: string) {
   const shortString = filename.split("").slice(before.length).join("");
 
   return shortString;
+}
+
+export function aspectRatioFromString(aspectRatio: string) {
+  const [width, height] = aspectRatio.split("/");
+  
+  return +width / +height;
+
 }

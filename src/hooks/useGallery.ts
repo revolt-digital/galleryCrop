@@ -15,6 +15,7 @@ import { ImageType, Endpoint, SelectedImageType } from "../types";
 
 type Props = {
   deckid: string;
+  aspectRatio: string;
 };
 
 const useGallery = ({ deckid }: Props) => {

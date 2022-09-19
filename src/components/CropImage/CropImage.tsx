@@ -6,7 +6,7 @@ import Button from "../Common/Button/Button";
 import Spinner from "../Common/Spinner/Spinner";
 import InputRange from "../Common/InputRange/InputRange";
 import useCrop from "../../hooks/useCrop";
-import { getCroppedImg, normalizeFilename } from "../../utils";
+import { aspectRatioFromString, getCroppedImg, normalizeFilename } from "../../utils";
 
 type Props = {
   deckid: string;
@@ -15,7 +15,7 @@ type Props = {
   url: string;
   name: string;
   setIsEdition: React.Dispatch<boolean>;
-  aspectRatio: number;
+  aspectRatio: string;
 };
 
 const CropImage: FC<Props> = ({
@@ -66,7 +66,7 @@ const CropImage: FC<Props> = ({
               image={url}
               crop={crop}
               zoom={zoom}
-              aspect={aspectRatio}
+              aspect={aspectRatioFromString(aspectRatio)}
               onCropChange={setCrop}
               onCropComplete={onCropComplete}
               onZoomChange={setZoom}

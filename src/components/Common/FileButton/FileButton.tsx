@@ -21,13 +21,17 @@ const FileButton = ({
   return (
     <label
       className={classNames(
-        "button",
+        "gallery-crop-button",
         { "button-outline": outline },
         { "button-transparent": transparent },
         { "button-primary": primary }
       )}
     >
-      <input onChange={onChange} type="file" accept="image/png, image/gif, image/jpeg, image/jpg" />
+      <input
+        onChange={onChange}
+        type="file"
+        accept="image/png, image/gif, image/jpeg, image/jpg, image/svg"
+      />
       <span className="file-button-text">
         {!!icon && icon}
         {!!text && text}

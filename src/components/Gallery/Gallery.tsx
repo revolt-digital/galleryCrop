@@ -13,11 +13,12 @@ type Props = {
   setIsEdition: React.Dispatch<boolean>;
   uploadImage: (files: File, type: number) => Promise<void>;
   uploadImageLoading: boolean;
-  getImages: () => Promise<void>;
+  getImages: (aspectRatio: string) => Promise<void>;
   deleteImage: (imageId: number) => Promise<void>;
   imageSelected: SelectedImageType | null;
   setImageSelected: React.Dispatch<SelectedImageType | null>;
   onSelect: (image: SelectedImageType) => void;
+  aspectRatio: string;
 };
 
 const Gallery: FC<Props> = ({
@@ -31,6 +32,7 @@ const Gallery: FC<Props> = ({
   imageSelected,
   setImageSelected,
   onSelect,
+  aspectRatio
 }) => {
   const handleUpload = async (event: React.ChangeEvent<any>) => {
     if (uploadImageLoading) return;
@@ -40,8 +42,8 @@ const Gallery: FC<Props> = ({
   };
 
   useEffect(() => {
-    getImages();
-  }, [getImages]);
+    getImages(aspectRatio);
+  }, [getImages, aspectRatio]);
 
   return (
     <Card

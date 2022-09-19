@@ -25,7 +25,7 @@ const Button: FC<Props> = ({
   return (
     <button
       className={classNames(
-        "button",
+        "gallery-crop-button",
         { "button-outline": outline },
         { "button-transparent": transparent },
         { "button-primary": primary },

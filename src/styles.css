@@ -29,6 +29,11 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
+h1, h2, h3, h4, h5, h6 {
+  margin: 0;
+  font-weight: normal;
+}
+
 input[type="file"] {
   width: 0;
   height: 0;
@@ -85,7 +90,7 @@ input[type="range"]::-ms-thumb {
   align-items: center;
   border: 1px solid var(--gray);
   border-radius: 5%;
-  padding: 0.5rem;
+  padding: 1rem;
   height: 240px;
   cursor: pointer;
 }
@@ -106,20 +111,33 @@ input[type="range"]::-ms-thumb {
 .image-description {
   display: flex;
   flex-direction: column;
-  justify-content: center;
   align-items: center;
+  text-align: center;
 }
 
 .image-thumbnail {
+  flex: 1;
   width: 100%;
   max-height: 155px;
   object-fit: contain;
   border-radius: 4px;
 }
 
+.buttons-wrapper {
+  width: 100%;
+}
+
 .icon-container {
   display: flex;
   justify-content: center;
+  align-items: center;
+}
+
+.divider {
+  width: 2px;
+  height: 15px;
+  background-color: var(--gray);
+  margin: 0.5rem 0;
 }
 
 .image-name-label {
@@ -164,7 +182,7 @@ input[type="range"]::-ms-thumb {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   overflow: hidden;
-  gap: 0.5rem;
+  gap: 1rem;
   height: 55vh;
   overflow-y: auto;
   border: 2px solid var(--alternative);
@@ -213,24 +231,20 @@ input[type="range"]::-ms-thumb {
 }
 
 .card-body {
+  width: 100%;
   height: 100%;
-  margin: 0 30px;
 }
 
 .card-title {
   font-size: 24px;
-  font-weight: 500;
-  line-height: 29px;
-  letter-spacing: 0em;
-  padding: 0 14px;
-  text-align: left;
+  margin-bottom: 1rem;
 }
 
 .card-button-container {
   padding: 10px 50px 0;
 }
 
-.button {
+.gallery-crop-button {
   display: flex;
   flex-direction: row;
   justify-content: center;

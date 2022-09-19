@@ -41,7 +41,7 @@ const ImageCard: FC<Props> = ({
       onClick={handleSelected}
     >
       <img className="image-thumbnail" src={url} alt="" />
-      <div className="image-wrapper">
+      <div className="buttons-wrapper">
         <div className="icon-container">
           <Button
             text="edit"
@@ -51,6 +51,7 @@ const ImageCard: FC<Props> = ({
               setIsEdition(true);
             }}
           />
+          <span className="divider" />
           <Button text="delete" onClick={handleDelete} transparent />
         </div>
         <div className="image-description text-ellipsis">
